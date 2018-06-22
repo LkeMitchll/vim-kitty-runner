@@ -9,10 +9,19 @@ endfunction
 
 function! s:RunCommand()
   call inputsave()
-  let command = input('Command to run: ')
+  let s:command = input('Command to run: ')
   call inputrestore()
-  silent exec "!kitty @ --to=". g:KittyPort. " new-window --title ". g:KittyRunnerName. " --keep-focus --cwd=". $PWD
-  silent exec "!kitty @ --to=". g:KittyPort. " send-text --match=title:". g:KittyRunnerName. " " .command. ""
+  if exists("s:runner_open")
+    silent exec "!kitty @ --to=". g:KittyPort. " send-text --match=title:". g:KittyRunnerName. " " .s:command. ""
+  else
+    let s:runner_open = 1
+    silent exec "!kitty @ --to=". g:KittyPort. " new-window --title ". g:KittyRunnerName. " --keep-focus --cwd=". $PWD
+    silent exec "!kitty @ --to=". g:KittyPort. " send-text --match=title:". g:KittyRunnerName. " " .s:command. ""
+  endif
+endfunction
+
+function! s:RunLastCommand()
+  silent exec "!kitty @ --to=". g:KittyPort. " send-text --match=title:". g:KittyRunnerName. " " .s:command. ""
 endfunction
 
 function! s:ClearRunner()
@@ -22,6 +31,7 @@ endfunction
 
 function! s:KillRunner()
   silent exec "!kitty @ --to=". g:KittyPort. " close-window --match=title:vim-cmd"
+  unlet s:runner_open
 endfunction
 
 function! s:InitializeVariables()
@@ -31,6 +41,7 @@ endfunction
 
 function! s:DefineCommands()
   command! KittyRunCommand call s:RunCommand()
+  command! KittyRunCommandAgain call s:RunLastCommand()
   command! KittyClearRunner call s:ClearRunner()
   command! KittyKillRunner call s:KillRunner()
 endfunction
@@ -39,6 +50,7 @@ function! s:DefineKeymaps()
   nmap <Leader>tr :KittyRunCommand<CR>
   nmap <Leader>tc :KittyClearRunner<CR>
   nmap <Leader>tk :KittyKillRunner<CR>
+  nmap <Leader>tl :KittyRunCommandAgain<CR>
 endfunction
 
 call s:InitializeVariables()
