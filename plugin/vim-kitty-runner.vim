@@ -8,7 +8,7 @@ function! s:InitVariable(var, value)
 endfunction
 
 function! s:SendKittyCommand(command)
-  let prefixed_command = g:KittyPrefix . " " . a:command
+  let prefixed_command = "!kitty @ --to=" . g:KittyPort . " " . a:command
   silent exec prefixed_command
 endfunction
 
@@ -16,13 +16,13 @@ function! s:RunCommand()
   call inputsave()
   let s:command = input('Command to run: ')
   call inputrestore()
-  let s:wholecommand = join([g:KittyRunCmd, shellescape(s:command, 1), ""])
+  let s:wholecommand = join([s:run_cmd, shellescape(s:command, 1), ""])
 
   if exists("s:runner_open")
     call s:SendKittyCommand(s:wholecommand)
   else
     let s:runner_open = 1
-    call s:SendKittyCommand(g:KittyNewWinCmd)
+    call s:SendKittyCommand("new-window --title " . s:runner_name . " " . g:KittyWinArgs)
     call s:SendKittyCommand(s:wholecommand)
   endif
 endfunction
@@ -35,27 +35,25 @@ endfunction
 
 function! s:ClearRunner()
   if exists("s:runner_open")
-    call s:SendKittyCommand(g:KittyRunCmd . " ")
+    call s:SendKittyCommand(s:run_cmd . " ")
   endif
 endfunction
 
 function! s:KillRunner()
   if exists("s:runner_open")
-    call s:SendKittyCommand(g:KittyKillCmd)
+    call s:SendKittyCommand(s:kill_cmd)
     unlet s:runner_open
   endif
 endfunction
 
 function! s:InitializeVariables()
   let uuid = system("uuidgen|sed 's/.*/&/'")[:-2]
+  let s:runner_name = "vim-cmd_" . uuid
+  let s:run_cmd = "send-text --match=title:" . s:runner_name
+  let s:kill_cmd = "close-window --match=title:" . s:runner_name
   call s:InitVariable("g:KittyUseMaps", 1)
   call s:InitVariable("g:KittyPort", "unix:/tmp/kitty")
-  call s:InitVariable("g:KittyRunnerName", "vim-cmd_" . uuid)
-  call s:InitVariable("g:KittyPrefix", "!kitty @ --to=" . g:KittyPort)
   call s:InitVariable("g:KittyWinArgs", "--keep-focus --cwd=" . $PWD)
-  call s:InitVariable("g:KittyRunCmd", "send-text --match=title:" . g:KittyRunnerName)
-  call s:InitVariable("g:KittyKillCmd", "close-window --match=title:" . g:KittyRunnerName)
-  call s:InitVariable("g:KittyNewWinCmd", "new-window --title " . g:KittyRunnerName . " " . g:KittyWinArgs)
 endfunction
 
 function! s:DefineCommands()
