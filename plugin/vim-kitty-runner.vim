@@ -48,6 +48,7 @@ endfunction
 
 function! s:InitializeVariables()
   let uuid = system("uuidgen|sed 's/.*/&/'")[:-2]
+  call s:InitVariable("g:KittyUseMaps", 1)
   call s:InitVariable("g:KittyPort", "unix:/tmp/kitty")
   call s:InitVariable("g:KittyRunnerName", "vim-cmd_" . uuid)
   call s:InitVariable("g:KittyPrefix", "!kitty @ --to=" . g:KittyPort)
@@ -65,10 +66,12 @@ function! s:DefineCommands()
 endfunction
 
 function! s:DefineKeymaps()
-  nmap <Leader>tr :KittyRunCommand<CR>
-  nmap <Leader>tc :KittyClearRunner<CR>
-  nmap <Leader>tk :KittyKillRunner<CR>
-  nmap <Leader>tl :KittyRunCommandAgain<CR>
+  if g:KittyUseMaps
+    nmap <Leader>tr :KittyRunCommand<CR>
+    nmap <Leader>tc :KittyClearRunner<CR>
+    nmap <Leader>tk :KittyKillRunner<CR>
+    nmap <Leader>tl :KittyRunCommandAgain<CR>
+  endif
 endfunction
 
 call s:InitializeVariables()
