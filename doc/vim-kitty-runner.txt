@@ -1,4 +1,4 @@
-*vim-kitty-runner.txt*	      For Vim version 7.3
+*vim-kitty-runner.txt*
 
                             Vim Kitty Runner
 
@@ -21,8 +21,8 @@ ABOUT (1)                                                           *VKR-About*
 
 VKR -- Straightforward Vim/kitty integration
 
-A simple, vimscript only, command runner for sending commands from vim to the kitty [1] terminal emulator.
-Inspired heavily by vim-tmux-runner [2].
+A simple, vimscript only, command runner for sending commands from vim to the
+kitty [1] terminal emulator.  Inspired heavily by vim-tmux-runner [2].
 
 [1]: https://sw.kovidgoyal.net/kitty/index.html
 [2]: https://github.com/christoomey/vim-tmux-runner
@@ -98,7 +98,8 @@ The following normal mode maps are provided when g:KittyUseMaps is set to 1:
         <leader>tc   |   KittyClearRunner<cr>
         <leader>tk   |   KittyKillRunner<cr>
 
-You can set your own mappings by adding a line like the following, to your .vimrc:
+You can set your own mappings by adding a line like the following, to your
+.vimrc:
 
     nmap <Leader>tr :KittyRunCommand<CR>
 
