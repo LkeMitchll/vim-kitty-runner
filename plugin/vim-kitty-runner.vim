@@ -16,7 +16,7 @@ function! s:RunCommand()
   call inputsave()
   let s:command = input('Command to run: ')
   call inputrestore()
-  let s:wholecommand = join([s:run_cmd, shellescape(s:command, 1), ""])
+  let s:wholecommand = join([s:run_cmd, shellescape(s:command, 1), shellescape('\n')])
 
   if exists("s:runner_open")
     call s:SendKittyCommand(s:wholecommand)
