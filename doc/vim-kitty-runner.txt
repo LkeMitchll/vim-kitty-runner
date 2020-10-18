@@ -15,6 +15,8 @@ CONTENTS                                                        *vkr-contents*
         3.1 ................................ |KittyUseMaps|
         3.2 ................................ |KittyPort|
         3.3 ................................ |KittyWinArgs|
+        3.4                                  |KittySwitchFocus|
+        3.5                                  |KittyFocusLayout|
 
 ==============================================================================
 ABOUT (1)                                                           *VKR-About*
@@ -121,7 +123,7 @@ More info: https://sw.kovidgoyal.net/kitty/remote-control.html#tutorial
 Default: unix:/tmp/kitty
 ------------------------------------------------------------------------------
                                                                     *KittyWinArgs*
-3.2 g:KittyWinArgs~
+3.3 g:KittyWinArgs~
 
 Set the arguments for window creation that kitty will use.
 
@@ -132,5 +134,44 @@ Add the following to your vimrc (or similar):
 More info: https://sw.kovidgoyal.net/kitty/remote-control.html#kitty-new-window
 
 Default: "--keep-focus --cwd=" . $PWD
+
+------------------------------------------------------------------------------
+                                                                    *KittyWinArgs*
+3.4 g:KittySwitchFocus~
+
+Allow VKR to switch window layouts, so that you can see the output of the
+command, if you're using a stacked layout for example.
+
+Add the following to your vimrc (or similar):
+
+  let g:KittySwitchFocus = 1
+
+  or the following to disable them:
+
+  let g:KittySwitchFocus = 0
+
+Default: 0 (enabled)
+
+------------------------------------------------------------------------------
+                                                                    *KittyWinArgs*
+3.5 g:KittyFocusLayout~
+
+Define which layout to switch to if g:KittySwitchFocus is enabled.
+
+NOTE: You must have the layout listed in your kitty config:
+
+e.g. enabled_layouts stack;full_size
+
+more info: https://sw.kovidgoyal.net/kitty/layouts.html?highlight=layout
+
+Add the following to your vimrc (or similar):
+
+  let g:KittyFocusLayout = "tall"
+
+And add the following to your kitty config:
+
+  enabled_layouts stack;full_size;tall
+
+Default: "fat:bias=70"
 ==============================================================================
 vim:tw=78:ts=2:sw=2:expandtab:ft=help:norl:

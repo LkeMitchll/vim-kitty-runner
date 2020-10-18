@@ -12,6 +12,13 @@ function! s:SendKittyCommand(command)
   silent exec prefixed_command
 endfunction
 
+function! s:SwitchKittyLayout()
+  if g:KittySwitchFocus
+    let layout_command = "!kitty @ goto-layout " . g:KittyFocusLayout
+    silent exec layout_command
+  endif
+endfunction
+
 function! s:RunCommand()
   call inputsave()
   let s:command = input('Command to run: ')
@@ -20,16 +27,19 @@ function! s:RunCommand()
 
   if exists("s:runner_open")
     call s:SendKittyCommand(s:wholecommand)
+    call s:SwitchKittyLayout()
   else
     let s:runner_open = 1
     call s:SendKittyCommand("new-window --title " . s:runner_name . " " . g:KittyWinArgs)
     call s:SendKittyCommand(s:wholecommand)
+    call s:SwitchKittyLayout()
   endif
 endfunction
 
 function! s:RunLastCommand()
   if exists("s:runner_open")
     call s:SendKittyCommand(s:wholecommand)
+    call s:SwitchKittyLayout()
   endif
 endfunction
 
@@ -54,6 +64,8 @@ function! s:InitializeVariables()
   call s:InitVariable("g:KittyUseMaps", 1)
   call s:InitVariable("g:KittyPort", "unix:/tmp/kitty")
   call s:InitVariable("g:KittyWinArgs", "--keep-focus --cwd=" . $PWD)
+  call s:InitVariable("g:KittySwitchFocus", 0)
+  call s:InitVariable("g:KittyFocusLayout", "fat:bias=70")
 endfunction
 
 function! s:DefineCommands()
