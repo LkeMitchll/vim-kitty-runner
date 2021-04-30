@@ -58,7 +58,7 @@ endfunction
 
 function! s:InitializeVariables()
   let uuid = system("uuidgen|sed 's/.*/&/'")[:-2]
-  let s:runner_name = "vim-cmd_" . uuid
+  let s:runner_name = "vkr_" . uuid
   let s:run_cmd = "send-text --match=title:" . s:runner_name
   let s:kill_cmd = "close-window --match=title:" . s:runner_name
   call s:InitVariable("g:KittyUseMaps", 1)
