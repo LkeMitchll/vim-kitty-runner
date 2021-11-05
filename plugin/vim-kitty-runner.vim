@@ -26,6 +26,7 @@ function! s:RunCommand()
   let s:wholecommand = join([s:run_cmd, shellescape(s:command, 1), shellescape('\n')])
 
   if exists("s:runner_open")
+    call s:ClearRunner()
     call s:SendKittyCommand(s:wholecommand)
     call s:SwitchKittyLayout()
   else
@@ -38,6 +39,7 @@ endfunction
 
 function! s:RunLastCommand()
   if exists("s:runner_open")
+    call s:ClearRunner()
     call s:SendKittyCommand(s:wholecommand)
     call s:SwitchKittyLayout()
   endif
@@ -45,7 +47,8 @@ endfunction
 
 function! s:ClearRunner()
   if exists("s:runner_open")
-    call s:SendKittyCommand(s:run_cmd . " ")
+    call s:SendKittyCommand(join([s:run_cmd, shellescape("clear", 1), shellescape('\n')]))
+    call s:SendKittyCommand("scroll-window --match=title:" . s:runner_name . " end")
   endif
 endfunction
 
