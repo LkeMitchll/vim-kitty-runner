@@ -30,14 +30,6 @@ If you don't have a preferred installation method, I recommend using
 Plug 'lkemitchll/vim-kitty-runner'
 ```
 
-## Documentation
-
-You can find Documentation, including configuration by running:
-
-```vim
-:h vim-kitty-runner
-```
-
 [vim-tmux-runner]: https://github.com/christoomey/vim-tmux-runner
 [kitty]: https://github.com/kovidgoyal/kitty
 [vim-plug]: https://github.com/junegunn/vim-plug
