@@ -1,7 +1,5 @@
 # VKR (Vim Kitty Runner)
 
-### Note: This plugin is in an ALPHA state
-
 A simple, vimscript only, command runner for sending commands from vim to the [kitty][] terminal emulator.
 Inspired heavily by Chris Toomey's [vim-tmux-runner][].
 
