@@ -69,6 +69,7 @@ function! s:InitializeVariables()
   call s:InitVariable("g:KittyWinArgs", "--keep-focus --cwd=" . $PWD)
   call s:InitVariable("g:KittySwitchFocus", 0)
   call s:InitVariable("g:KittyFocusLayout", "fat:bias=70")
+  call s:InitVariable("g:KittyKillOnQuit", 1)
 endfunction
 
 function! s:DefineCommands()
@@ -90,3 +91,7 @@ endfunction
 call s:InitializeVariables()
 call s:DefineCommands()
 call s:DefineKeymaps()
+
+if g:KittyKillOnQuit
+  autocmd ExitPre * :KittyKillRunner
+endif

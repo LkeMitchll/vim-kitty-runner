@@ -15,8 +15,9 @@ CONTENTS                                                        *vkr-contents*
         3.1 ................................ |KittyUseMaps|
         3.2 ................................ |KittyPort|
         3.3 ................................ |KittyWinArgs|
-        3.4                                  |KittySwitchFocus|
-        3.5                                  |KittyFocusLayout|
+        3.4 ................................ |KittySwitchFocus|
+        3.5 ................................ |KittyFocusLayout|
+        3.6 ................................ |KittyKillOnQuit|
 
 ==============================================================================
 ABOUT (1)                                                           *VKR-About*
@@ -136,7 +137,7 @@ More info: https://sw.kovidgoyal.net/kitty/remote-control.html#kitty-new-window
 Default: "--keep-focus --cwd=" . $PWD
 
 ------------------------------------------------------------------------------
-                                                                    *KittyWinArgs*
+                                                                    *KittySwitchFocus*
 3.4 g:KittySwitchFocus~
 
 Allow VKR to switch window layouts, so that you can see the output of the
@@ -150,10 +151,10 @@ Add the following to your vimrc (or similar):
 
   let g:KittySwitchFocus = 0
 
-Default: 0 (enabled)
+Default: 0 (disabled)
 
 ------------------------------------------------------------------------------
-                                                                    *KittyWinArgs*
+                                                                    *KittyFocusLayout*
 3.5 g:KittyFocusLayout~
 
 Define which layout to switch to if g:KittySwitchFocus is enabled.
@@ -173,5 +174,21 @@ And add the following to your kitty config:
   enabled_layouts stack;full_size;tall
 
 Default: "fat:bias=70"
+
+------------------------------------------------------------------------------
+                                                                    *KittyKillOnQuit*
+3.6 g:KittyKillOnQuit~
+
+Set whether or not VKR will kill the runner when vim quits (:qa).
+
+Add the following to your vimrc (or similar):
+
+  let g:KittyKillOnQuit = 1
+
+  or the following to disable kill on quit:
+
+  let g:KittyKillOnQuit = 0
+
+Default: 1 (enabled)
 ==============================================================================
 vim:tw=78:ts=2:sw=2:expandtab:ft=help:norl:
