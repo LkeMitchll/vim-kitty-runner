@@ -19,6 +19,16 @@ function! s:SwitchKittyLayout()
   endif
 endfunction
 
+function! s:SpawnRunner()
+  if exists("s:runner_open")
+    echo("Runner already exists")
+  else
+    let s:runner_open = 1
+    call s:SendKittyCommand("new-window --title " . s:runner_name . " " . g:KittyWinArgs)
+    call s:SwitchKittyLayout()
+  endif
+endfunction
+
 function! s:RunCommand()
   call inputsave()
   let s:command = input('Command to run: ')
@@ -73,6 +83,7 @@ function! s:InitializeVariables()
 endfunction
 
 function! s:DefineCommands()
+  command! KittySpawnRunner call s:SpawnRunner()
   command! KittyRunCommand call s:RunCommand()
   command! KittyRunCommandAgain call s:RunLastCommand()
   command! KittyClearRunner call s:ClearRunner()
@@ -81,6 +92,7 @@ endfunction
 
 function! s:DefineKeymaps()
   if g:KittyUseMaps
+    nmap <Leader>ts :KittySpawnRunner<CR>
     nmap <Leader>tr :KittyRunCommand<CR>
     nmap <Leader>tc :KittyClearRunner<CR>
     nmap <Leader>tk :KittyKillRunner<CR>

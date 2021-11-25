@@ -11,6 +11,7 @@ CONTENTS                                                        *vkr-contents*
         2.2  ............................... |KittyRunCommandAgain|
         2.3  ............................... |KittyClearRunner|
         2.4  ............................... |KittyKillRunner|
+        2.5  ............................... |KittySpawnRunner|
       3. Configuration ................... |VKR-Configuration|
         3.1 ................................ |KittyUseMaps|
         3.2 ................................ |KittyPort|
@@ -74,6 +75,15 @@ Destroy the current kitty runner window.
 Example:
   :KittyClearRunner
 
+------------------------------------------------------------------------------
+                                                              *KittySpawnRunner*
+2.4 KittySpawnRunner
+
+Spawn a kitty runner window, without running a command.
+
+Example:
+  :KittySpawnRunner
+
 ==============================================================================
 CONFIGURATION (3)                                           *VKR-Configuration*
 
@@ -100,6 +110,7 @@ The following normal mode maps are provided when g:KittyUseMaps is set to 1:
         <leader>tl   |   KittyRunCommandAgain<cr>
         <leader>tc   |   KittyClearRunner<cr>
         <leader>tk   |   KittyKillRunner<cr>
+        <leader>ts   |   KittySpawnRunner<cr>
 
 You can set your own mappings by adding a line like the following, to your
 .vimrc:
