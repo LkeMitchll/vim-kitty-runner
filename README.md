@@ -1,5 +1,11 @@
 # VKR (Vim Kitty Runner)
 
+---
+
+**NOTE** I am no longer working on the vimscript version of VKR. I have been working on a NeoVim (Lua) fork of [kitty-runner.nvim](https://github.com/LkeMitchll/kitty-runner.nvim)
+
+---
+
 A simple, vimscript only, command runner for sending commands from vim to the [kitty][] terminal emulator.
 Inspired heavily by Chris Toomey's [vim-tmux-runner][].
 
